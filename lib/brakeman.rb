@@ -197,6 +197,8 @@ module Brakeman
       [:to_markdown]
     when :cc, :to_cc, :codeclimate, :to_codeclimate
       [:to_codeclimate]
+    when :checkstyle, :to_checkstyle
+      [:to_checkstyle]
     when :plain ,:to_plain
       [:to_plain]
     else
@@ -222,6 +224,8 @@ module Brakeman
         :to_markdown
       when /(\.cc|\.codeclimate)$/i
         :to_codeclimate
+      when /\.checkstyle$/i
+        :to_checkstyle
       when /\.plain$/i
         :to_plain
       else
