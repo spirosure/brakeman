@@ -31,7 +31,7 @@ class Brakeman::Report::Checkstyle < Brakeman::Report::Base
   def filling_checkstyle(document)
     document.add_element('checkstyle').tap do |checkstyle|
       checked_files.each do |file_name|
-        checkstyle.add_element('file', name: file_name).tap do |file|
+        checkstyle.add_element('file', 'name' => file_name).tap do |file|
           filling_errors(file, file_name)
         end
       end
@@ -40,7 +40,8 @@ class Brakeman::Report::Checkstyle < Brakeman::Report::Base
 
   def filling_errors(file, file_name)
     all_warnings.select { |warning| warning.file == file_name }.each do |error|
-      file.add_element('error', line: error.line, severity: SEVERITY[error.confidence], message: error.message)
+      attributes = { 'line' => error.line, 'severity' => SEVERITY[error.confidence], 'message' => error.message }
+      file.add_element('error', attributes)
     end
   end
 end
